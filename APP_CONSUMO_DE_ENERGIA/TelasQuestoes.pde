@@ -1,4 +1,4 @@
 void telaQuestoes() {
   background(240);
-  text("Tela de Teoria", 100, 100);
+  text("Tela de Questões", 100, 100);
 }
