@@ -1,8 +1,9 @@
-## Padrão de código para cada tela do app
+# Padrão de Código e Organização das Telas
 
-Cada pessoa ficará responsável por **sua respectiva tela(s)** do aplicativo. Para manter tudo organizado, cada tela deve ter **duas funções principais**:
+Cada pessoa ficará responsável por sua respectiva(s) tela(s) do aplicativo.
+Para manter tudo organizado e padronizado, cada tela deve possuir **duas funções principais**:
 
-
+```java
 void telaNomeDaTela() {
   // Desenha tudo que aparece na tela
 }
@@ -10,24 +11,24 @@ void telaNomeDaTela() {
 void cliqueNomeDaTela() {
   // Controla os cliques dessa tela
 }
+```
 
-
-A primeira função desenha a tela.
-A segunda função controla o que acontece quando o usuário clica nela.
+* A função `tela...()` desenha os elementos visuais da tela.
+* A função `clique...()` controla o que acontece quando o usuário clica na tela.
 
 ---
 
-Exemplo: quem ficou com a Tela de Teoria
+# Exemplo: Tela de Teoria
 
-A pessoa deve criar ou editar o arquivo:
+A pessoa responsável pela Tela de Teoria deve criar ou editar o arquivo:
 
-***
+```text
 TelaTeoria.pde
-***
+```
 
-E dentro dele colocar:
+E dentro dele colocar algo como:
 
-
+```java
 void telaTeoria() {
   background(240);
 
@@ -45,87 +46,94 @@ void telaTeoria() {
 }
 
 void cliqueTeoria() {
-  // Clique no botão Voltar
-  if (mouseX > 300 && mouseX < 500 &&
-      mouseY > 400 && mouseY < 460) {
-    tela = 2; // volta para a Tela Principal
+
+  // Clique no botão "Voltar"
+  if (
+    mouseX > 300 && mouseX < 500 &&
+    mouseY > 400 && mouseY < 460
+  ) {
+    tela = 2; // Volta para a Tela Principal
   }
 }
-
+```
 
 ---
 
-## Regra principal
+# Regra Principal
 
-Cada pessoa deve mexer **somente no arquivo da sua tela**, no seu branch, por exemplo:
+Cada pessoa deve mexer **somente no arquivo da sua própria tela**, dentro da sua branch.
 
+Exemplos:
 
+```text
 TelaTeoria.pde
 TelaQuestoes.pde
 TelaRespostas.pde
 TelaRevisao.pde
 TelaCreditos.pde
+```
 
-
-Não precisa mexer no arquivo Navegacao.pde, porque ele já chama automaticamente a tela certa.
+Não é necessário modificar o arquivo `Navegacao.pde`, pois ele já realiza automaticamente a chamada da tela correta.
 
 ---
 
-## Como a navegação funciona
+# Como a Navegação Funciona
 
-No arquivo Navegacao.pde, já existe isso:
+No arquivo `Navegacao.pde`, existe uma estrutura semelhante a esta:
 
-
+```java
 if (tela == 3) {
   telaTeoria();
 }
-
+```
 
 Isso significa:
 
-> Quando a variável *tela* for igual a 3, o Processing vai desenhar a tela de teoria.
+> Quando a variável `tela` for igual a `3`, o Processing desenhará a Tela de Teoria.
 
-E também existe:
+Também existe:
 
-
+```java
 if (tela == 3) {
   cliqueTeoria();
 }
-
+```
 
 Isso significa:
 
-> Quando o usuário estiver na tela de teoria e clicar, o Processing vai executar a função *cliqueTeoria()*.
+> Quando o usuário estiver na Tela de Teoria e clicar, o Processing executará a função `cliqueTeoria()`.
 
-Por isso, quem faz a tela de teoria (por exemplo) só precisa criar essas duas funções:
+Por isso, quem desenvolve uma tela precisa apenas criar:
 
-
+```java
 void telaTeoria() {
-  
+
 }
 
 void cliqueTeoria() {
-  
-}
 
+}
+```
 
 ---
 
-## Como mudar de tela
+# Como Mudar de Tela
 
-Para mudar de tela, basta alterar o valor da variável *tela*, dentro da função *cliqueNomedaTela()*.
+Para mudar de tela, basta alterar o valor da variável `tela` dentro da função `cliqueNomeDaTela()`.
 
 Exemplo:
 
-
+```java
 tela = 2;
+```
 
+Isso levará o usuário para a Tela Principal.
 
-Isso leva para a Tela Principal.
+---
 
-## Tabela dos números:
+# Tabela de Navegação Principal
 
-
+```text
 0 = Introdução
 1 = Sumário
 2 = Tela Principal
@@ -134,13 +142,17 @@ Isso leva para a Tela Principal.
 5 = Respostas
 6 = Revisão
 7 = Créditos
+```
 
 ---
 
-## Modelo final que todos devem seguir
+# Modelo Final Obrigatório
 
+Todos devem seguir este modelo base:
 
+```java
 void telaNomeDaTela() {
+
   background(255);
 
   fill(0);
@@ -151,89 +163,98 @@ void telaNomeDaTela() {
 }
 
 void cliqueNomeDaTela() {
+
   // Verificar aqui se o mouse clicou em algum botão
 
-  if (mouseX > 100 && mouseX < 300 &&
-      mouseY > 400 && mouseY < 460) {
+  if (
+    mouseX > 100 && mouseX < 300 &&
+    mouseY > 400 && mouseY < 460
+  ) {
     tela = 2;
   }
 }
+```
 
 ---
 
-A ideia é simples:
+# Criação de Sub-Telas (Teorias e Questões)
 
-**a função *tela...()* desenha a tela.
-a função *clique...()* controla os botões dessa tela.**
+Para a criação de telas internas subordinadas às telas principais (como Teoria 1, Questão 2, etc.), seguiremos o padrão abaixo.
 
-================================================================================================
+---
 
-Agora, no que se trata da criação de novas telas subordinadas às principais (como telas internas de Teoria e Questões), trabalharemos da seguinte forma:
+## Criação das Funções
 
-Quando você criar uma nova tela, crie primeiramente as funções:
+Quando você criar uma nova sub-tela, crie primeiro as funções:
 
-
+```java
 void tela[NomeDaTela][Numero]()
 void clique[NomeDaTela][Numero]()
-
+```
 
 Exemplos:
 
-
+```java
 void telaTeoria1()
 void cliqueTeoria1()
 
 void telaQuestoes1()
 void cliqueQuestoes1()
+```
 
-
-Essas funções devem ser criadas **apenas no seu próprio arquivo .pde dentro da sua branch**, sem modificar o arquivo Navegacao.pde.
+Essas funções devem ser criadas **somente no seu próprio arquivo `.pde` dentro da sua branch**, sem modificar o arquivo `Navegacao.pde`.
 
 ---
 
-## Navegação entre telas internas
+# Navegação Entre Sub-Telas
 
-Dentro da função de clique, utilize a variável tela para realizar a navegação entre as telas.
+Dentro da função de clique, utilize a variável `tela` para navegar entre as sub-telas.
 
 O padrão utilizado será:
 
-
-tela = [numero principal][numero da sub-tela]
-
+```java
+tela = [numero principal][numero da sub-tela];
+```
 
 Exemplos:
 
-
+```java
 tela = 31;
 tela = 32;
 tela = 33;
-
+```
 
 Onde:
 
-
+```text
 3  = Tela principal de Teoria
 31 = Tela Teoria 1
 32 = Tela Teoria 2
 33 = Tela Teoria 3
-
+```
 
 Outro exemplo:
 
-
+```text
 4  = Tela principal de Questões
 41 = Questão 1
 42 = Questão 2
 43 = Questão 3
+```
 
-
-Essas alterações também devem ser feitas **somente no seu arquivo**, sem modificar o Navegacao.pde.
+Essas alterações também devem ser feitas somente no seu próprio arquivo, sem modificar o `Navegacao.pde`.
 
 ---
 
-## Integração no Navegacao.pde
+# Integração no Navegacao.pde
 
-A atribuição das novas funções no arquivo Navegacao.pde, bem como a criação das respectivas condições de navegação (if (tela == 31), por exemplo), será realizada apenas pelo Yanni no momento da integração da branch com a main.
+A atribuição das novas funções no arquivo `Navegacao.pde`, bem como a criação das respectivas condições de navegação:
+
+```java
+if (tela == 31)
+```
+
+será realizada apenas pelo Yanni no momento da integração da branch com a `main`.
 
 Isso será feito para:
 
