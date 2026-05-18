@@ -268,4 +268,4 @@ Isso será feito para:
 A importação da biblioteca ControlP5, bem como a declaração do objeto cp5, já serão feitos no arquivo principal! 
 Por isso, não há a necessidade de fazer estas referências novamente no seu arquivo.
 
-!! UTILIZEM APENAS AS FUNÇÕES DE *.TEXTLABEL* E *.TEXTAREA* EXPLICADOS NO ARQUIVO **BIBLIOTECA CONTROLP5**, PORQUE A FUNÇÃO DE BOTÕES PRECISARÁ DE UMA ESTRUTURA MAIS COMPLEXA PARA SER IMPLEMENTADA !! 
+!! UTILIZEM APENAS AS FUNÇÕES DE *.TEXTLABEL* E *.TEXTAREA* EXPLICADOS NO ARQUIVO **BIBLIOTECA CONTROLP5**, PORQUE A FUNÇÃO DE BOTÕES PRECISARIA DE UMA ESTRUTURA DE APP MAIS COMPLEXA PARA SER IMPLEMENTADA !! 
