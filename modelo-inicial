@@ -1,6 +1,12 @@
+// variável global de controle de tela
+
+int screen = 0;
+
 // criação do objeto "screen1" pertencente a classe "Screen"
 
-Screen screen1;
+Screen intro;
+Screen summary;
+Screen credits;
 
 // criação dos objetos botões pertencentes a classe "Buttons"
 
@@ -8,6 +14,14 @@ Buttons b1;
 Buttons b2;
 Buttons b3;
 Buttons exitButton;
+
+Buttons b4;
+Buttons b5;
+Buttons b6;
+
+Buttons b7;
+Buttons b8;
+Buttons b9;
 
 // controle de cores
 
@@ -25,39 +39,69 @@ void setup(){
 
   // atribuição de parâmetros da tela (Screen)
 
-  screen1 = new Screen(mainScreenCol, secondaryScreenCol, 1);
+  intro = new Screen(mainScreenCol, secondaryScreenCol);
+  summary = new Screen(mainScreenCol, secondaryScreenCol);
+  credits = new Screen(mainScreenCol, secondaryScreenCol);
 
- // atribuição de parâmetros dos botões (Buttons)
+  // atribuição de parâmetros dos botões (Buttons)
 
-  b1 = new Buttons(0.1, 0.2, 0.25, 0.1, mainButtonCol);
-  b2 = new Buttons(0.4, 0.2, 0.25, 0.1, mainButtonCol);
-  b3 = new Buttons(0.7, 0.2, 0.25, 0.1, mainButtonCol);
+  b1 = new Buttons(0.1, 0.2, 0.15, 0.1, mainButtonCol);
+  b2 = new Buttons(0.4, 0.2, 0.15, 0.1, mainButtonCol);
+  b3 = new Buttons(0.7, 0.2, 0.15, 0.1, mainButtonCol);
   exitButton = new Buttons(0.92, 0.02, 0.06, 0.06, exitButtonCol);
+  
+  b4 = new Buttons(0.2, 0.1, 0.15, 0.1, mainButtonCol);
+  b5 = new Buttons(0.2, 0.4, 0.15, 0.1, mainButtonCol);
+  b6 = new Buttons(0.2, 0.7, 0.15, 0.1, mainButtonCol);
+  
+  b7 = new Buttons(0.2, 0.2, 0.15, 0.1, mainButtonCol);
+  b8 = new Buttons(0.4, 0.4, 0.15, 0.1, mainButtonCol);
+  b9 = new Buttons(0.7, 0.7, 0.15, 0.1, mainButtonCol);
 }
 
 void draw(){
 
-  // método "draw" da class Screen
+  // condicional de tela, "monta" o layout
 
-  screen1.drawScreen();
-
-  // método "hover" da class Button
-
-  b1.hover();
-  b2.hover();
-  b3.hover();  
-  exitButton.hover();
-
-  // método "draw" e "drawText" da class Button
-
-  b1.drawButton();
-  b2.drawButton();
-  b3.drawButton();
-  exitButton.drawButton();
-  exitButton.drawText("SAIR");
+  if (screen == 0) {
+    b1.hover();
+    b2.hover();
+    b3.hover();  
+    exitButton.hover();
+  
+    intro.drawScreen();
+    b1.drawButton();
+    b2.drawButton();
+    b3.drawButton();
+    exitButton.drawButton();
+    exitButton.drawText("SAIR");
+  }
+  
+  if (screen == 1) {
+    b4.hover();
+    b5.hover();
+    b6.hover();
+  
+    summary.drawScreen();
+    b4.drawButton();
+    b5.drawButton();
+    b6.drawButton();
+  }
+  
+  if (screen == 2) {
+    b7.hover();
+    b8.hover();
+    b9.hover();
+  
+    credits.drawScreen();
+    b7.drawButton();
+    b8.drawButton();
+    b9.drawButton();
+  }
+  
 }
 
-// remoção da funcionalidade da tecla "ESC"
+// bloqueia a tecla "ESC", fecha a janela somente com o botão
 
 void keyPressed(){
 
@@ -66,9 +110,22 @@ void keyPressed(){
   }
 }
 
-// funcionalidade do "exitButton" com "exit()"
+// função de detecção de clique
 
-void mousePressed(){  
+void mousePressed(){
+  
+  if (b1.isMouseOver()){
+    screen = 1;
+  }
+  
+  if (b4.isMouseOver()){
+    screen = 2;
+  }
+  
+  if (b7.isMouseOver()){
+    screen = 0;
+  }
+  
   if (exitButton.isMouseOver()){
     exit();
   }
@@ -163,11 +220,10 @@ class Screen {
   color secondScreenCol;
   int order;
 
-  Screen(color mainScreenCol, color secondScreenCol, int order){
+  Screen(color mainScreenCol, color secondScreenCol){
 
     this.mainScreenCol = mainScreenCol;
-    this.secondScreenCol = secondScreenCol;
-    this.order = order;    
+    this.secondScreenCol = secondScreenCol;   
   }
 
   // método "drawScreen", desenha a tela
