@@ -1,0 +1,181 @@
+// criação do objeto "screen1" pertencente a classe "Screen"
+
+Screen screen1;
+
+// criação dos objetos botões pertencentes a classe "Buttons"
+
+Buttons b1;
+Buttons b2;
+Buttons b3;
+Buttons exitButton;
+
+// controle de cores
+
+color mainScreenCol = color(0,50,255);
+color secondaryScreenCol = color(200,100,0);
+color mainButtonCol = color(30,200,200);
+color secondaryButtonCol = color(250,250,250);
+color exitButtonCol = color(200,0,0);
+
+void setup(){
+
+  // definição de tela em fullscreen (modo JAVA2D)
+
+  fullScreen(JAVA2D);
+
+  // atribuição de parâmetros da tela (Screen)
+
+  screen1 = new Screen(mainScreenCol, secondaryScreenCol, 1);
+
+ // atribuição de parâmetros dos botões (Buttons)
+
+  b1 = new Buttons(0.1, 0.2, 0.25, 0.1, mainButtonCol);
+  b2 = new Buttons(0.4, 0.2, 0.25, 0.1, mainButtonCol);
+  b3 = new Buttons(0.7, 0.2, 0.25, 0.1, mainButtonCol);
+  exitButton = new Buttons(0.92, 0.02, 0.06, 0.06, exitButtonCol);
+}
+
+void draw(){
+
+  // método "draw" da class Screen
+
+  screen1.drawScreen();
+
+  // método "hover" da class Button
+
+  b1.hover();
+  b2.hover();
+  b3.hover();  
+  exitButton.hover();
+
+  // método "draw" e "drawText" da class Button
+
+  b1.drawButton();
+  b2.drawButton();
+  b3.drawButton();
+  exitButton.drawButton();
+  exitButton.drawText("SAIR");
+}
+
+// remoção da funcionalidade da tecla "ESC"
+
+void keyPressed(){
+
+  if (key == ESC){
+    key = 0;
+  }
+}
+
+// funcionalidade do "exitButton" com "exit()"
+
+void mousePressed(){  
+  if (exitButton.isMouseOver()){
+    exit();
+  }
+}
+
+// classe para os botões
+
+class Buttons {
+
+  float relX, relY;
+  float relW, relH;
+
+  color buttonCol;
+  color baseCol;
+
+  Buttons(float relX, float relY, float relW, float relH, color buttonCol){
+
+    this.relX = relX;
+    this.relY = relY;
+    this.relW = relW;
+    this.relH = relH;
+
+    this.buttonCol = buttonCol;
+    this.baseCol = buttonCol;
+  }
+
+  // método "drawButton", desenha os botões
+
+  void drawButton(){
+
+    float x = relX * width;
+    float y = relY * height;
+    float w = relW * width;
+    float h = relH * height;
+
+    noStroke();
+    fill(buttonCol);
+    rect(x, y, w, h);
+  }
+
+  // método "drawText", desenha texto
+
+  void drawText(String txt){
+
+    float x = relX * width;
+    float y = relY * height;
+    float w = relW * width;
+    float h = relH * height;
+
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(h * 0.5);
+
+    text(txt, x + w/2, y + h/2);
+  }
+
+  // método "hover", muda cor com o "passar por cima" do cursor
+
+  void hover(){
+
+    if (isMouseOver()){
+
+      buttonCol = color(
+        min(red(baseCol) + 30, 255), 
+        min(green(baseCol) + 30, 255), 
+        min(blue(baseCol) + 30, 255)
+      );
+
+    } else {
+      buttonCol = baseCol;
+    }    
+  }
+
+  // retorna true com base na posição do mouse "em cima" do botão
+
+  boolean isMouseOver(){
+
+    float x = relX * width;
+    float y = relY * height;
+    float w = relW * width;
+    float h = relH * height;
+
+    return (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h);    
+  }
+}
+
+// classe para as telas
+
+class Screen {
+
+  color mainScreenCol;
+  color secondScreenCol;
+  int order;
+
+  Screen(color mainScreenCol, color secondScreenCol, int order){
+
+    this.mainScreenCol = mainScreenCol;
+    this.secondScreenCol = secondScreenCol;
+    this.order = order;    
+  }
+
+  // método "drawScreen", desenha a tela
+
+  void drawScreen(){
+
+    noStroke();
+    fill(mainScreenCol);
+    rect(0,0,width,height);    
+  }  
+}
