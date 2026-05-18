@@ -28,7 +28,7 @@ void controlarCliques(){
   } else if (tela == 2){
     cliquePrincipal();
   } else if (tela == 3){
-    cliqueTeoria();
+    cliqueTeorias();
   } else if (tela == 4){
     cliqueQuestoes();
   } else if (tela == 5){
