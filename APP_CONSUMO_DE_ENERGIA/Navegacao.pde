@@ -8,7 +8,7 @@ void controlarTelas(){
   } else if (tela == 2) {
     telaPrincipal();
   } else if (tela == 3) {
-    telaTeoria();
+    telaTeorias();
   } else if (tela == 4) {
     telaQuestoes();
   } else if (tela == 5) {
