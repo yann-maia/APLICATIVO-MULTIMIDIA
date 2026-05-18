@@ -1,4 +1,4 @@
-void telasTeoria(){
+void telaTeorias(){
   background(255);
 }
 
