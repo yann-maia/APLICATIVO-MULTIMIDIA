@@ -1,4 +1,8 @@
-void TelaRevisao() {
+void telaRevisao() {
   background(0,0,0);
   text("Tela de Revisão", 100, 100);
+}
+
+void cliqueRevisao() {
+
 }
