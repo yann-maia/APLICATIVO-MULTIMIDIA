@@ -262,3 +262,10 @@ Isso será feito para:
 * impedir duplicações de números de tela;
 * manter a navegação centralizada;
 * evitar inconsistências no fluxo do aplicativo.
+
+# IMPORTANTE:
+
+A importação da biblioteca ControlP5, bem como a declaração do objeto cp5, já serão feitos no arquivo principal! 
+Por isso, não há a necessidade de fazer estas referências novamente no seu arquivo.
+
+!! UTILIZEM APENAS AS FUNÇÕES DE *.TEXTLABEL* E *.TEXTAREA* EXPLICADOS NO ARQUIVO **BIBLIOTECA CONTROLP5**, PORQUE A FUNÇÃO DE BOTÕES PRECISARÁ DE UMA ESTRUTURA MAIS COMPLEXA PARA SER IMPLEMENTADA !! 
