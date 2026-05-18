@@ -365,3 +365,263 @@ rect(246, 196, 208, 88);
 ```
 
 ---
+# Caixas de texto no ControlP5
+
+## Como uma caixa de texto funciona no ControlP5
+
+No ControlP5, existem componentes próprios para exibir textos na tela. Eles ajudam a organizar títulos, subtítulos, explicações e descrições sem precisar escrever tudo manualmente com `text()`.
+
+Os dois componentes mais úteis para isso são:
+
+| Componente  | Para que serve                                |
+| ----------- | --------------------------------------------- |
+| `Textlabel` | textos curtos, como títulos e subtítulos      |
+| `Textarea`  | textos maiores, como explicações e descrições |
+
+---
+
+# 1. Criando título e subtítulo com `Textlabel`
+
+O `Textlabel` serve para criar textos simples na tela.
+
+Exemplo completo:
+
+```java
+import controlP5.*;
+
+ControlP5 cp5;
+
+void setup() {
+  size(700, 400);
+
+  // Cria o objeto principal do ControlP5
+  cp5 = new ControlP5(this);
+
+  // Cria um título usando Textlabel
+  cp5.addTextlabel("titulo")
+     .setText("Consumo de Energia")
+     .setPosition(180, 60)
+     .setColorValue(color(0))
+     .setFont(createFont("Arial", 30));
+
+  // Cria um subtítulo usando Textlabel
+  cp5.addTextlabel("subtitulo")
+     .setText("Aprenda a economizar energia elétrica")
+     .setPosition(160, 110)
+     .setColorValue(color(80))
+     .setFont(createFont("Arial", 18));
+}
+
+void draw() {
+  background(230);
+}
+```
+
+## Explicação das funções
+
+```java
+.addTextlabel("titulo")
+```
+
+Cria um texto simples chamado `"titulo"`.
+
+```java
+.setText("Consumo de Energia")
+```
+
+Define o texto que aparecerá na tela.
+
+```java
+.setPosition(180, 60)
+```
+
+Define a posição do texto:
+
+* `180` é a posição no eixo X;
+* `60` é a posição no eixo Y.
+
+```java
+.setColorValue(color(0))
+```
+
+Define a cor do texto.
+
+```java
+.setFont(createFont("Arial", 30))
+```
+
+Define a fonte e o tamanho do texto.
+
+---
+
+# 2. Criando uma caixa de texto grande com `Textarea`
+
+O `Textarea` serve para textos maiores, como explicações, instruções ou descrições.
+
+Exemplo completo:
+
+```java
+import controlP5.*;
+
+ControlP5 cp5;
+
+// Variável que guarda a caixa de texto grande
+Textarea textoExplicativo;
+
+void setup() {
+  size(750, 500);
+
+  // Cria o objeto principal do ControlP5
+  cp5 = new ControlP5(this);
+
+  // Cria a caixa de texto grande
+  textoExplicativo = cp5.addTextarea("explicacao")
+                        .setPosition(100, 120)
+                        .setSize(550, 250)
+                        .setFont(createFont("Arial", 18))
+                        .setColor(color(0))
+                        .setLineHeight(26)
+                        .setColorBackground(color(245))
+                        .setColorForeground(color(200));
+
+  // Define o texto que aparecerá dentro da caixa
+  textoExplicativo.setText(
+    "O consumo de energia elétrica faz parte do nosso dia a dia.\n\n" +
+    "Quando usamos lâmpadas, chuveiro, televisão e computador,\n" +
+    "estamos utilizando energia.\n\n" +
+    "Economizar energia ajuda o meio ambiente e também reduz gastos."
+  );
+}
+
+void draw() {
+  background(220);
+}
+```
+
+## Pequenas diferenças em relação ao `Textlabel`
+
+Algumas funções funcionam de forma parecida:
+
+```java
+.setPosition(100, 120)
+```
+
+Define onde a caixa aparece.
+
+```java
+.setSize(550, 250)
+```
+
+Define largura e altura da caixa.
+
+```java
+.setFont(createFont("Arial", 18))
+```
+
+Define a fonte do texto.
+
+```java
+.setColor(color(0))
+```
+
+Define a cor do texto dentro da caixa.
+
+A principal diferença é que o `Textarea` cria uma área maior, com fundo, tamanho definido e várias linhas de texto.
+
+---
+
+## Funções importantes do `Textarea`
+
+```java
+.setLineHeight(26)
+```
+
+Define o espaçamento entre as linhas do texto.
+
+Quanto maior o número, maior o espaço entre uma linha e outra.
+
+```java
+.setColorBackground(color(245))
+```
+
+Define a cor de fundo da caixa de texto.
+
+```java
+textoExplicativo.setText()
+```
+
+Define o texto que aparecerá dentro da caixa.
+
+Exemplo:
+
+```java
+textoExplicativo.setText("Texto dentro da caixa");
+```
+
+---
+
+# O que significa `\n`?
+
+O símbolo:
+
+```java
+\n
+```
+
+significa **quebra de linha**.
+
+Exemplo:
+
+```java
+"Primeira linha\nSegunda linha\nTerceira linha"
+```
+
+O resultado será:
+
+```text
+Primeira linha
+Segunda linha
+Terceira linha
+```
+
+Para pular uma linha em branco, usamos dois:
+
+```java
+"\n\n"
+```
+
+Exemplo:
+
+```java
+"Parágrafo 1.\n\nParágrafo 2."
+```
+
+Resultado:
+
+```text
+Parágrafo 1.
+
+Parágrafo 2.
+```
+
+---
+
+# Resumo final
+
+Use:
+
+```java
+Textlabel
+```
+
+para títulos, subtítulos e textos curtos.
+
+Use:
+
+```java
+Textarea
+```
+
+para explicações, descrições e textos maiores.
+
+O `Textlabel` é mais simples. O `Textarea` é mais completo, porque permite criar uma caixa grande com fundo, tamanho definido, espaçamento entre linhas e textos organizados.
