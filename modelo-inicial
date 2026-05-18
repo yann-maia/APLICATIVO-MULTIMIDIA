@@ -39,9 +39,9 @@ void setup(){
 
   // atribuição de parâmetros da tela (Screen)
 
-  intro = new Screen(mainScreenCol, secondaryScreenCol);
-  summary = new Screen(mainScreenCol, secondaryScreenCol);
-  credits = new Screen(mainScreenCol, secondaryScreenCol);
+  intro = new Screen(mainScreenCol, secondaryScreenCol, 1);
+  summary = new Screen(mainScreenCol, secondaryScreenCol, 2);
+  credits = new Screen(mainScreenCol, secondaryScreenCol, 3);
 
   // atribuição de parâmetros dos botões (Buttons)
 
@@ -218,12 +218,13 @@ class Screen {
 
   color mainScreenCol;
   color secondScreenCol;
-  int order;
+  int type;
 
-  Screen(color mainScreenCol, color secondScreenCol){
+  Screen(color mainScreenCol, color secondScreenCol, int type){
 
     this.mainScreenCol = mainScreenCol;
-    this.secondScreenCol = secondScreenCol;   
+    this.secondScreenCol = secondScreenCol;
+    this.type = type;
   }
 
   // método "drawScreen", desenha a tela
@@ -232,6 +233,24 @@ class Screen {
 
     noStroke();
     fill(mainScreenCol);
-    rect(0,0,width,height);    
-  }  
+    rect(0,0,width,height);   
+    
+    if (this.type == 1){
+      noStroke();
+      fill(secondaryScreenCol);
+      rect(0,0,width,height*0.1); 
+    }
+    
+    if (this.type == 2){
+      noStroke();
+      fill(secondaryScreenCol);
+      rect(width*0.9,0,width,height); 
+    }
+    
+    if (this.type == 3){
+      noStroke();
+      fill(secondaryScreenCol);
+      rect(0,0,width*0.1,height); 
+    } 
+  }
 }
