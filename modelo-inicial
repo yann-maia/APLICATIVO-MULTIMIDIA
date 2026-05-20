@@ -2,18 +2,24 @@
 
 int screen = 0;
 
-// criação do objeto "screen1" pertencente a classe "Screen"
+// criação dos objetos "intro", etc. pertencentes a classe "Screen"
 
 Screen intro;
 Screen summary;
 Screen credits;
+Screen teory;
+Screen questions;
+Screen answers;
+Screen flashcards;
 
-// criação dos objetos botões pertencentes a classe "Buttons"
+// criação dos objetos "bx" pertencentes a classe "Buttons"
+
+Buttons exitButton;
+Buttons backButton;
 
 Buttons b1;
 Buttons b2;
 Buttons b3;
-Buttons exitButton;
 
 Buttons b4;
 Buttons b5;
@@ -26,10 +32,12 @@ Buttons b9;
 // controle de cores
 
 color mainScreenCol = color(0,50,255);
-color secondaryScreenCol = color(200,100,0);
+color secondScreenCol = color(0,20,200);
+color thirdScreenCol = color(0,30,150);
 color mainButtonCol = color(30,200,200);
 color secondaryButtonCol = color(250,250,250);
 color exitButtonCol = color(200,0,0);
+color backButtonCol = color(0,0,240);
 
 void setup(){
 
@@ -39,24 +47,25 @@ void setup(){
 
   // atribuição de parâmetros da tela (Screen)
 
-  intro = new Screen(mainScreenCol, secondaryScreenCol, 1);
-  summary = new Screen(mainScreenCol, secondaryScreenCol, 2);
-  credits = new Screen(mainScreenCol, secondaryScreenCol, 3);
+  intro   = new Screen(mainScreenCol, secondScreenCol, 1);
+  summary = new Screen(mainScreenCol, secondScreenCol, 2);
+  credits = new Screen(mainScreenCol, secondScreenCol, 1);
+  teory = new Screen(mainScreenCol, secondScreenCol, 3);
+  questions = new Screen(mainScreenCol, secondScreenCol, 3);
+  answers = new Screen(mainScreenCol, secondScreenCol, 3);
+  flashcards = new Screen(mainScreenCol, secondScreenCol, 3);
 
   // atribuição de parâmetros dos botões (Buttons)
-
-  b1 = new Buttons(0.1, 0.2, 0.15, 0.1, mainButtonCol);
-  b2 = new Buttons(0.4, 0.2, 0.15, 0.1, mainButtonCol);
-  b3 = new Buttons(0.7, 0.2, 0.15, 0.1, mainButtonCol);
-  exitButton = new Buttons(0.92, 0.02, 0.06, 0.06, exitButtonCol);
   
-  b4 = new Buttons(0.2, 0.1, 0.15, 0.1, mainButtonCol);
-  b5 = new Buttons(0.2, 0.4, 0.15, 0.1, mainButtonCol);
-  b6 = new Buttons(0.2, 0.7, 0.15, 0.1, mainButtonCol);
+  exitButton = new Buttons(0.92, 0.03, 0.06, 0.06, exitButtonCol);
+  backButton = new Buttons(0.92, 0.03, 0.06, 0.06, backButtonCol);
   
-  b7 = new Buttons(0.2, 0.2, 0.15, 0.1, mainButtonCol);
-  b8 = new Buttons(0.4, 0.4, 0.15, 0.1, mainButtonCol);
-  b9 = new Buttons(0.7, 0.7, 0.15, 0.1, mainButtonCol);
+  b1 = new Buttons(0.2, 0.2, 0.12, 0.1, mainButtonCol);
+  b2 = new Buttons(0.44, 0.2, 0.12, 0.1, mainButtonCol);
+  b3 = new Buttons(0.68, 0.2, 0.12, 0.1, mainButtonCol);
+  b4 = new Buttons(0.2, 0.35, 0.12, 0.1, mainButtonCol);
+  b5 = new Buttons(0.44, 0.35, 0.12, 0.1, mainButtonCol);
+  b6 = new Buttons(0.68, 0.35, 0.12, 0.1, mainButtonCol);
 }
 
 void draw(){
@@ -66,39 +75,74 @@ void draw(){
   if (screen == 0) {
     b1.hover();
     b2.hover();
-    b3.hover();  
-    exitButton.hover();
-  
-    intro.drawScreen();
-    b1.drawButton();
-    b2.drawButton();
-    b3.drawButton();
-    exitButton.drawButton();
-    exitButton.drawText("SAIR");
-  }
-  
-  if (screen == 1) {
+    b3.hover();
     b4.hover();
     b5.hover();
     b6.hover();
+    exitButton.hover();
+
+    intro.drawScreen();
+    b1.drawButton();
+    b1.drawText("Sumário");
+    b2.drawButton();
+    b2.drawText("Teoria");
+    b3.drawButton();
+    b3.drawText("Créditos");
+    b4.drawButton();
+    b4.drawText("Questões");
+    b5.drawButton();
+    b5.drawText("Revisão");
+    exitButton.drawButton();
+    exitButton.drawText("Sair");
+  }
+  
+  if (screen == 1) {
+    backButton.hover();
   
     summary.drawScreen();
-    b4.drawButton();
-    b5.drawButton();
-    b6.drawButton();
+    backButton.drawButton();
+    backButton.drawText("Voltar");
   }
   
   if (screen == 2) {
-    b7.hover();
-    b8.hover();
-    b9.hover();
+    backButton.hover();
   
-    credits.drawScreen();
-    b7.drawButton();
-    b8.drawButton();
-    b9.drawButton();
+    teory.drawScreen();
+    backButton.drawButton();
+    backButton.drawText("Voltar");
   }
   
+  if (screen == 3) {
+    backButton.hover();
+  
+    questions.drawScreen();
+    backButton.drawButton();
+    backButton.drawText("Voltar");
+  }
+  
+  if (screen == 4) {
+    backButton.hover();
+  
+    answers.drawScreen();
+    backButton.drawButton();
+    backButton.drawText("Voltar");
+  }
+  
+  if (screen == 5) {
+    backButton.hover();
+  
+    flashcards.drawScreen();
+    backButton.drawButton();
+    backButton.drawText("Voltar");
+  }
+  
+  if (screen == 6) {
+    exitButton.hover();
+  
+    credits.drawScreen();
+    backButton.drawButton();
+    backButton.drawText("Voltar");
+  }
 }
 
 // bloqueia a tecla "ESC", fecha a janela somente com o botão
@@ -118,16 +162,28 @@ void mousePressed(){
     screen = 1;
   }
   
-  if (b4.isMouseOver() && screen == 1){
+  if (b2.isMouseOver() && screen == 0){
     screen = 2;
   }
   
-  if (b7.isMouseOver() && screen == 2){
-    screen = 0;
+  if (b3.isMouseOver() && screen == 0){
+    screen = 6;
   }
   
-  if (exitButton.isMouseOver()){
+  if (b4.isMouseOver() && screen == 0){
+    screen = 3;
+  }
+  
+  if (b5.isMouseOver() && screen == 0){
+    screen = 5;
+  }
+  
+  if (exitButton.isMouseOver() && screen == 0){
     exit();
+  }
+  
+  if (backButton.isMouseOver() && screen != 0){
+    screen = 0;
   }
 }
 
@@ -237,20 +293,25 @@ class Screen {
     
     if (this.type == 1){
       noStroke();
-      fill(secondaryScreenCol);
-      rect(0,0,width,height*0.1); 
+      fill(secondScreenCol);
+      rect(0,0,width,height*0.12); 
     }
     
     if (this.type == 2){
       noStroke();
-      fill(secondaryScreenCol);
-      rect(width*0.9,0,width,height); 
+      fill(thirdScreenCol);
+      rect(0,0,width*0.1,height); 
+      rect(width*0.9,0,width,height);
+      fill(secondScreenCol);
+      rect(0,0,width,height*0.12);
     }
     
     if (this.type == 3){
       noStroke();
-      fill(secondaryScreenCol);
-      rect(0,0,width*0.1,height); 
+      fill(thirdScreenCol);
+      rect(0,0,width*0.1,height);
+      fill(secondScreenCol);
+      rect(0,0,width,height*0.12);
     } 
   }
 }
