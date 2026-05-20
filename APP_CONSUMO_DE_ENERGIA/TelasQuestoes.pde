@@ -1,75 +1,138 @@
+import controlP5.*;
+
+ControlP5 cp5;
+
+Textlabel titulo;
+Textlabel subtitulo;
+
+int tela = 0;
 int questao = 0;
 int pontos = 0;
-// ==========================================
-// QUESTÕES
-// ==========================================
+
+// PERGUNTAS
+
 String[] perguntas = {
 
-  "Uma residência possui 10 lâmpadas LED de 12 W cada, ligadas durante 5 horas por dia. Qual é o consumo total em kWh após 30 dias?",
+  // FÁCEIS (V/F)
+  "1) Um aparelho desligado da tomada pode continuar consumindo energia.",
+  "2) Dois aparelhos com mesma potência sempre consomem a mesma energia.",
+  "3) O selo Procel A indica maior eficiência energética.",
+  "4) Um aparelho de 1000 W consome 1 kWh em 1 hora.",
+  "5) Lâmpadas LED transformam mais energia em luz que lâmpadas incandescentes.",
 
-  "Um chuveiro elétrico possui potência de 5500 W e é utilizado por 40 minutos diariamente. Qual é o consumo mensal aproximado em kWh em 30 dias?",
+  // MÉDIAS
+  "6) Um chuveiro de 5500 W ligado por 20 minutos consome aproximadamente:",
+  "7) Qual aparelho normalmente apresenta maior potência elétrica?",
+  "8) Uma TV de 200 W ligada 5h por dia durante 30 dias consumirá:",
 
-  "Qual alternativa apresenta um aparelho com MAIOR eficiência energética?",
-
-  "Uma máquina de lavar de 800 W funciona 2 horas por dia durante 25 dias. Qual o consumo total em kWh?",
-
-  "Uma família substituiu 5 lâmpadas incandescentes de 60 W por LEDs de 9 W. Qual foi a redução total de potência?"
+  // DIFÍCEIS
+  "9) Uma residência possui 6 lâmpadas de 15 W ligadas 8h por dia durante 30 dias. O consumo total é:",
+  "10) Um ar-condicionado de 1500 W funciona 6h por dia durante 30 dias. Se o kWh custa R$0,90, o gasto será aproximadamente:"
 };
 
-// ==========================================
 // ALTERNATIVAS
-// ==========================================
 
 String[][] alternativas = {
 
   {
-    "A) 18 kWh",
-    "B) 12 kWh",
-    "C) 24 kWh",
-    "D) 30 kWh"
+    "Verdadeiro",
+    "Falso"
   },
 
   {
-    "A) 66 kWh",
-    "B) 110 kWh",
-    "C) 220 kWh",
-    "D) 55 kWh"
+    "Verdadeiro",
+    "Falso"
   },
 
   {
-    "A) Selo D",
-    "B) Selo C",
-    "C) Selo A",
-    "D) Selo E"
+    "Verdadeiro",
+    "Falso"
   },
 
   {
-    "A) 20 kWh",
-    "B) 40 kWh",
-    "C) 60 kWh",
-    "D) 80 kWh"
+    "Verdadeiro",
+    "Falso"
   },
 
   {
-    "A) 255 W",
-    "B) 300 W",
-    "C) 150 W",
-    "D) 75 W"
+    "Verdadeiro",
+    "Falso"
+  },
+
+  // MÉDIAS
+  {
+    "0,9 kWh",
+    "1,8 kWh",
+    "2,2 kWh",
+    "5,5 kWh"
+  },
+
+  {
+    "Carregador de celular",
+    "Chuveiro elétrico",
+    "Lâmpada LED",
+    "Roteador"
+  },
+
+  {
+    "3 kWh",
+    "30 kWh",
+    "300 kWh",
+    "15 kWh"
+  },
+
+  // DIFÍCEIS
+  {
+    "10,8 kWh",
+    "21,6 kWh",
+    "32,4 kWh",
+    "43,2 kWh"
+  },
+
+  {
+    "R$81",
+    "R$162",
+    "R$243",
+    "R$324"
   }
 };
 
-// ==========================================
-// RESPOSTAS CORRETAS
-// 0=A 1=B 2=C 3=D
-// ==========================================
+// RESPOSTAS
 
 int[] respostas = {
+
   0,
   1,
-  2,
   0,
-  0
+  0,
+  0,
+
+  1,
+  1,
+  1,
+
+  1,
+  2
 };
+
+
+  // TEXTOS COM CONTROLP5
+
+  titulo = cp5.addTextlabel("titulo")
+    .setText("QUIZ DE ENERGIA ELÉTRICA")
+    .setPosition(120, 150)
+    .setColorValue(color(0))
+    .setFont(createFont("Times New Roman", 36));
+
+  subtitulo = cp5.addTextlabel("subtitulo")
+    .setText("5 fáceis • 3 médias • 2 difíceis")
+    .setPosition(220, 230)
+    .setColorValue(color(0))
+    .setFont(createFont("Arial", 20));
+}
+
+// ==========================================
+
 void draw() {
 
   background(240);
@@ -88,195 +151,134 @@ void draw() {
   }
 }
 
-// ==========================================
 // TELA INICIAL
-// ==========================================
 
 void telaInicial() {
 
-  background(230, 240, 255);
-
-  textAlign(CENTER, CENTER);
-
-  fill(30, 60, 170);
-
-  textSize(42);
-  text("QUESTÕES", width/2, 180);
-
-  textSize(24);
-  text("Energia Elétrica e Consumo", width/2, 240);
+  titulo.setVisible(true);
+  subtitulo.setVisible(true);
 
   fill(0);
+
+  textAlign(CENTER);
 
   textSize(18);
 
   text(
-    "Questões difíceis com cálculos e eficiência energética",
+    "Teste seus conhecimentos sobre energia elétrica",
     width/2,
     320
   );
 
-  botao(width/2 - 120, 450, 240, 65, "INICIAR");
+  botao(300, 450, 200, 65, "INICIAR");
 }
 
-// ==========================================
-// TELA QUESTÕES
-// ==========================================
+// QUESTÕES
 
 void telaQuestoes() {
 
-  textAlign(LEFT, TOP);
+  titulo.setVisible(false);
+  subtitulo.setVisible(false);
 
-  // TOPO
-  fill(20, 60, 180);
-  noStroke();
+  fill(20, 60, 170);
 
-  rect(0, 0, width, 80);
+  rect(0, 0, width, 90);
 
   fill(255);
 
   textSize(30);
 
-  text("QUESTÕES", 30, 22);
+  textAlign(LEFT);
 
-  // QUESTÃO
+  text("QUESTÕES", 30, 55);
+
+  fill(0);
+
+  textSize(22);
+
+  text(
+    "Questão " + (questao + 1) + " de " + perguntas.length,
+    40,
+    130
+  );
+
+  // PERGUNTA
+
+  fill(255);
+
+  stroke(180);
+
+  rect(50, 170, 700, 120, 15);
+
   fill(0);
 
   textSize(20);
 
   text(
-    "Questão " + (questao + 1) + " de " + perguntas.length,
-    40,
-    100
-  );
-
-  // PONTOS
-  text(
-    "Pontos: " + pontos,
-    620,
-    100
-  );
-
-  // CAIXA DA PERGUNTA
-  fill(255);
-
-  stroke(180);
-
-  rect(40, 140, 720, 180, 20);
-
-  fill(0);
-
-  textSize(23);
-
-  // TEXTO AJUSTADO
-  text(
     perguntas[questao],
-    65,
-    175,
-    670,
-    130
+    70,
+    200,
+    650,
+    120
   );
 
-  // ==========================================
   // ALTERNATIVAS
-  // ==========================================
 
-  int y = 360;
+  int y = 340;
 
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < alternativas[questao].length; i++) {
 
     alternativa(
-      60,
-      y + i*85,
-      680,
-      60,
+      100,
+      y + i*80,
+      600,
+      55,
       alternativas[questao][i]
     );
   }
 }
 
-// ==========================================
-// ALTERNATIVAS
-// ==========================================
-
-void alternativa(float x, float y, float w, float h, String texto) {
-
-  if (mouseX > x &&
-      mouseX < x+w &&
-      mouseY > y &&
-      mouseY < y+h) {
-
-    fill(140, 190, 255);
-
-  } else {
-
-    fill(255);
-  }
-
-  stroke(120);
-
-  rect(x, y, w, h, 18);
-
-  fill(0);
-
-  textSize(20);
-
-  text(
-    texto,
-    x + 18,
-    y + 16
-  );
-}
-
-// ==========================================
 // TELA FINAL
-// ==========================================
 
 void telaFinal() {
 
-  background(230, 255, 230);
-
-  textAlign(CENTER, CENTER);
+  background(220, 255, 220);
 
   fill(0);
 
-  textSize(42);
+  textAlign(CENTER);
 
-  text(
-    "QUIZ FINALIZADO!",
-    width/2,
-    200
-  );
+  textSize(40);
 
-  textSize(32);
+  text("QUIZ FINALIZADO!", width/2, 180);
+
+  textSize(30);
 
   text(
     "Pontuação: " + pontos + " / " + perguntas.length,
     width/2,
-    320
+    300
   );
 
   textSize(24);
 
-  if (pontos == perguntas.length) {
+  if (pontos == 10) {
 
-    text("Excelente desempenho!", width/2, 420);
+    text("Excelente desempenho!", width/2, 400);
 
-  } else if (pontos >= 3) {
+  } else if (pontos >= 7) {
 
-    text("Muito bom!", width/2, 420);
+    text("Muito bom!", width/2, 400);
 
   } else {
 
-    text("Continue praticando!", width/2, 420);
+    text("Continue praticando!", width/2, 400);
   }
 
-  botao(width/2 - 130, 550, 260, 70, "REINICIAR");
+  botao(280, 520, 240, 70, "GABARITO");
 }
 
-// ==========================================
 // BOTÃO
-// ==========================================
 
 void botao(float x, float y, float w, float h, String texto) {
 
@@ -285,7 +287,7 @@ void botao(float x, float y, float w, float h, String texto) {
       mouseY > y &&
       mouseY < y+h) {
 
-    fill(100, 170, 255);
+    fill(90, 160, 255);
 
   } else {
 
@@ -309,29 +311,62 @@ void botao(float x, float y, float w, float h, String texto) {
   );
 }
 
-// ==========================================
+// ALTERNATIVA
+
+void alternativa(float x, float y, float w, float h, String texto) {
+
+  if (mouseX > x &&
+      mouseX < x+w &&
+      mouseY > y &&
+      mouseY < y+h) {
+
+    fill(170, 210, 255);
+
+  } else {
+
+    fill(255);
+  }
+
+  stroke(150);
+
+  rect(x, y, w, h, 15);
+
+  fill(0);
+
+  textAlign(LEFT, CENTER);
+
+  textSize(20);
+
+  text(
+    texto,
+    x + 20,
+    y + h/2
+  );
+}
+
 // CLIQUES
-// ==========================================
 
 void mousePressed() {
 
-  // TELA INICIAL
+  // INICIAR
+
   if (tela == 0) {
 
-    if (clicou(width/2 - 120, 450, 240, 65)) {
+    if (clicou(300, 450, 200, 65)) {
 
       tela = 1;
     }
   }
 
   // QUESTÕES
+
   else if (tela == 1) {
 
-    int y = 360;
+    int y = 340;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < alternativas[questao].length; i++) {
 
-      if (clicou(60, y + i*85, 680, 60)) {
+      if (clicou(100, y + i*80, 600, 55)) {
 
         verificarResposta(i);
       }
@@ -339,18 +374,28 @@ void mousePressed() {
   }
 
   // FINAL
+
   else if (tela == 2) {
 
-    if (clicou(width/2 - 130, 550, 260, 70)) {
+    if (clicou(280, 520, 240, 70)) {
 
-      reiniciar();
+      println("===== GABARITO =====");
+
+      println("1) Verdadeiro");
+      println("2) Falso");
+      println("3) Verdadeiro");
+      println("4) Verdadeiro");
+      println("5) Verdadeiro");
+
+      println("6) 1,8 kWh");
+      println("7) Chuveiro elétrico");
+      println("8) 30 kWh");
+
+      println("9) 21,6 kWh");
+      println("10) R$243");
     }
   }
 }
-
-// ==========================================
-// VERIFICAR
-// ==========================================
 
 void verificarResposta(int respostaJogador) {
 
@@ -359,28 +404,17 @@ void verificarResposta(int respostaJogador) {
     pontos++;
   }
 
-  questao++;
+  if (questao < perguntas.length - 1) {
 
-  if (questao >= perguntas.length) {
+    questao++;
+
+  } else {
 
     tela = 2;
   }
 }
 
-// ==========================================
-// REINICIAR
-// ==========================================
-
-void reiniciar() {
-
-  tela = 0;
-  questao = 0;
-  pontos = 0;
-}
-
-// ==========================================
 // DETECTAR CLIQUE
-// ==========================================
 
 boolean clicou(float x, float y, float w, float h) {
 
@@ -389,5 +423,3 @@ boolean clicou(float x, float y, float w, float h) {
          mouseY > y &&
          mouseY < y+h;
 }
-
-// ==========================================
