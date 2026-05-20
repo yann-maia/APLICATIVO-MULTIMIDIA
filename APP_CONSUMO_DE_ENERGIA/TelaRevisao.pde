@@ -1,61 +1,95 @@
 void telaRevisao() {
-
   background(240);
+  
 //titulo
   fill(0);
-  textSize(32);
   textAlign(CENTER);
+  textSize(40);
 
-  text("Flashcards de Revisão", 400, 60);
-//FAZENDO OS CARDS
-//card1
+  text("Flashcards - Consumo de energia", 400, 60);
+
+
+//criando os cards
+
   desenharCard(
     70, 120,
-    "pergunta1",
-    "resposta1"
+    "Qual é a fórmula da\n potência elétrica?",
+    "P = E / t"
   );
-//card2
+
   desenharCard(
     300, 120,
-    "pergunta2",
-    "resposta2"
+    "O que é a potência\n elétrica?",
+    "É a quantidade de energia\n que um aparelho consome\n por unidade de tempo"
   );
 
   desenharCard(
     530, 120,
-    "pergunta3",
-    "resposta3"
-  );
-//card4
-  desenharCard(
-    70, 300,
-    "pergunta4",
-    "resposta4"
-  );
-//card5
-  desenharCard(
-    300, 300,
-    "Pergunta5",
-    "resposta5"
+    "O que significa cada letra\n na fórmula P = E/t ?",
+    "P = potência (W)\n E = energia (J)\n t = tempo (s)"
   );
 
-//card6
+  desenharCard(
+    70, 300,
+    "Como calcular energia?",
+    "E = P x t"
+  );
+
+  desenharCard(
+    300, 300,
+    "Como calcular o tempo?",
+    "t = E / P"
+  );
 
   desenharCard(
     530, 300,
-    "pergunta6",
-    "resposta6"
+    "Qual a diferença entre\n potência e consumo\n de energia?",
+    "Consumo é a energia total\n gasta dependendo do\n tempo de uso.\n Potência é o quanto um\n aparelho gasta de\n energia por segundo"
+  );
+  
+  desenharCard(
+    530, 480,
+    "O que significa kWh?",
+    "kWh = energia consumida\nem 1 hora"
+  );
+  
+  desenharCard(
+    300, 480,
+    "O que influencia no\n consumo de energia?",
+    "Potência do aparelho\n e tempo de uso"
+  );
+  
+  desenharCard(
+    70, 480,
+    "O que significa cada\n parte do kWh?",
+    "k = mil\nW = potência elétrica\nh = tempo (hora)"
   );
 
-//botao pra voltar
-  fill(100, 180, 255);
-  rect(300, 700, 200, 60, 20);
-  fill(0);
 
-  textSize(24);
-  text("Voltar", 400, 738);
+//botao
+
+ boolean Botao =
+  mouseX > 312 &&
+  mouseX < 487 &&
+  mouseY > 700 &&
+  mouseY < 775;
+
+if (Botao) {
+  fill(180, 255, 180);
+} else {
+  fill(100, 180, 255);
 }
-//como os cards funcionam
+
+rect(312, 700, 175, 75, 20);
+
+fill(0);
+textAlign(CENTER, CENTER);
+textSize(25);
+text("Voltar", 400, 737);
+}
+
+
+//dando função pros card
 void desenharCard(
   int x,
   int y,
@@ -66,50 +100,57 @@ void desenharCard(
   int largura = 200;
   int altura = 120;
 
-// Verifica mouse em cima
   boolean mouseOver =
+
     mouseX > x &&
     mouseX < x + largura &&
+
     mouseY > y &&
     mouseY < y + altura;
 
-//mouseover
   if (mouseOver) {
+
     fill(180, 255, 180);
-    rect(x - 5, y - 5, 210, 130, 20);
+   
+    rect(x - 5, y - 5, largura + 10, altura + 10, 20);
+
   } else {
+
     fill(255);
+    stroke(0);
+    strokeWeight(2);
+
     rect(x, y, largura, altura, 20);
   }
-//texto
+
   fill(0);
-  textSize(16);
+
   textAlign(CENTER, CENTER);
 
-//se mouse estiver em cima
+  textSize(18);
+
   if (mouseOver) {
-    text(
-      resposta,
-      x + 100,
-      y + 60
-    );
+
+    text(resposta, x + largura/2, y + altura/2);
+
   } else {
-    text(
-      pergunta,
-      x + 100,
-      y + 60
-    );
+
+    text(pergunta, x + largura/2, y + altura/2);
   }
 }
-//clique
-void cliqueRevisao() {
 
-//botao voltar
+
+//clicar pra voltar
+
+void cliqueRevisao() {
   if (
-    mouseX > 300 &&
-    mouseX < 500 &&
+
+    mouseX > 312 &&
+    mouseX < 487 &&
+
     mouseY > 700 &&
-    mouseY < 760
+    mouseY < 775
+
   ) {
 
     tela = 2;
