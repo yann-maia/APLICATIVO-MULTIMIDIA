@@ -1,70 +1,109 @@
 void telaRevisao() {
   background(240);
   
-//titulo
-  fill(0);
-  textAlign(CENTER);
-  textSize(40);
+// fazendo a borda preta
+stroke(0);
+strokeWeight(3);
+fill(255);
 
-  text("Flashcards - Consumo de energia", 400, 60);
+rect(70, 120, 200, 120, 0);
+rect(300, 120, 200, 120, 0);
+rect(530, 120, 200, 120, 0);
 
+rect(70, 300, 200, 120, 0);
+rect(300, 300, 200, 120, 0);
+rect(530, 300, 200, 120, 0);
+
+rect(70, 480, 200, 120, 0);
+rect(300, 480, 200, 120, 0);
+rect(530, 480, 200, 120, 0);
+
+  //mostrando o título
+cp5.get(Textlabel.class, "titulo").show();
+//os cards
+cp5.get(Textarea.class, "card1").show();
+cp5.get(Textarea.class, "card2").show();
+cp5.get(Textarea.class, "card3").show();
+cp5.get(Textarea.class, "card4").show();
+cp5.get(Textarea.class, "card5").show();
+cp5.get(Textarea.class, "card6").show();
+cp5.get(Textarea.class, "card7").show();
+cp5.get(Textarea.class, "card8").show();
+cp5.get(Textarea.class, "card9").show();
 
 //criando os cards
 
-  desenharCard(
+ //CARD 1
+  atualizarCard(
+    "card1",
     70, 120,
-    "Qual é a fórmula da\n potência elétrica?",
+    "Qual é a fórmula da potência elétrica?",
     "P = E / t"
   );
 
-  desenharCard(
+//CARD 2
+  atualizarCard(
+    "card2",
     300, 120,
-    "O que é a potência\n elétrica?",
-    "É a quantidade de energia\n que um aparelho consome\n por unidade de tempo"
+    "O que é a potência elétrica?",
+    "Quantidade de energia que um aparelho consome por tempo"
   );
 
-  desenharCard(
+//CARD 3
+  atualizarCard(
+    "card3",
     530, 120,
-    "O que significa cada letra\n na fórmula P = E/t ?",
-    "P = potência (W)\n E = energia (J)\n t = tempo (s)"
+    "O que significa cada letra na fórmula \nP = E / t ?",
+    "P = potência (W)\nE = energia (J)\nt = tempo (s)"
   );
 
-  desenharCard(
+//CARD 4
+  atualizarCard(
+    "card4",
     70, 300,
     "Como calcular energia?",
     "E = P x t"
   );
 
-  desenharCard(
+//CARD 5
+  atualizarCard(
+    "card5",
     300, 300,
     "Como calcular o tempo?",
     "t = E / P"
   );
 
-  desenharCard(
+//CARD 6
+  atualizarCard(
+    "card6",
     530, 300,
-    "Qual a diferença entre\n potência e consumo\n de energia?",
-    "Consumo é a energia total\n gasta dependendo do\n tempo de uso.\n Potência é o quanto um\n aparelho gasta de\n energia por segundo"
+    "Qual a diferença entre potência e consumo de energia?",
+    "Consumo depende do tempo de uso. Potência é o gasto por segundo."
   );
-  
-  desenharCard(
-    530, 480,
-    "O que significa kWh?",
-    "kWh = energia consumida\nem 1 hora"
-  );
-  
-  desenharCard(
-    300, 480,
-    "O que influencia no\n consumo de energia?",
-    "Potência do aparelho\n e tempo de uso"
-  );
-  
-  desenharCard(
+
+//CARD 7
+  atualizarCard(
+    "card7",
     70, 480,
-    "O que significa cada\n parte do kWh?",
+    "O que significa cada parte do kWh?",
     "k = mil\nW = potência elétrica\nh = tempo (hora)"
   );
 
+//CARD 8
+  atualizarCard(
+    "card8",
+    300, 480,
+    "O que influencia no consumo de energia?",
+    "Potência do aparelho e tempo de uso"
+  );
+
+//CARD 9
+  atualizarCard(
+    "card9",
+    530, 480,
+    "O que significa kWh?",
+    "kWh = energia consumida em 1 hora"
+  );
 
 //botao
 
@@ -90,7 +129,8 @@ text("Voltar", 400, 737);
 
 
 //dando função pros card
-void desenharCard(
+void atualizarCard(
+  String nome,
   int x,
   int y,
   String pergunta,
@@ -108,34 +148,17 @@ void desenharCard(
     mouseY > y &&
     mouseY < y + altura;
 
-  if (mouseOver) {
+ if (mouseOver) {
 
-    fill(180, 255, 180);
-   
-    rect(x - 5, y - 5, largura + 10, altura + 10, 20);
-
-  } else {
-
-    fill(255);
-    stroke(0);
-    strokeWeight(2);
-
-    rect(x, y, largura, altura, 20);
-  }
-
-  fill(0);
-
-  textAlign(CENTER, CENTER);
-
-  textSize(18);
-
-  if (mouseOver) {
-
-    text(resposta, x + largura/2, y + altura/2);
+    cp5.get(Textarea.class, nome)
+       .setColorBackground(color(180, 255, 180))
+       .setText(resposta);
 
   } else {
 
-    text(pergunta, x + largura/2, y + altura/2);
+    cp5.get(Textarea.class, nome)
+       .setColorBackground(color(255))
+       .setText(pergunta);
   }
 }
 
@@ -152,7 +175,19 @@ void cliqueRevisao() {
     mouseY < 775
 
   ) {
-
+//escondendo o titulo
+    cp5.get(Textlabel.class, "titulo").hide();
+    //escondendo os cards
+    cp5.get(Textarea.class, "card1").hide();
+    cp5.get(Textarea.class, "card2").hide();
+    cp5.get(Textarea.class, "card3").hide();
+    cp5.get(Textarea.class, "card4").hide();
+    cp5.get(Textarea.class, "card5").hide();
+    cp5.get(Textarea.class, "card6").hide();
+    cp5.get(Textarea.class, "card7").hide();
+    cp5.get(Textarea.class, "card8").hide();
+    cp5.get(Textarea.class, "card9").hide();
+    
     tela = 2;
   }
 }
