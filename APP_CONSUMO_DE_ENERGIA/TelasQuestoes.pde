@@ -14,7 +14,7 @@ int pontos = 0;
 String[] perguntas = {
 
   // FÁCEIS (V/F)
-  "1) Um aparelho desligado da tomada pode continuar consumindo energia.",
+  "1) Um aparelho desligado pode continuar consumindo energia.",
   "2) Dois aparelhos com mesma potência sempre consomem a mesma energia.",
   "3) O selo Procel A indica maior eficiência energética.",
   "4) Um aparelho de 1000 W consome 1 kWh em 1 hora.",
