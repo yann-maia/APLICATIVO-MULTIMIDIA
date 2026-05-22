@@ -5,6 +5,9 @@ ControlP5 cp5;
 Textlabel titulo;
 Textlabel subtitulo;
 
+PFont fonteTitulo;
+PFont fonteTexto;
+
 int tela = 0;
 int questao = 0;
 int pontos = 0;
@@ -14,7 +17,7 @@ int pontos = 0;
 String[] perguntas = {
 
   // FÁCEIS (V/F)
-  "1) Um aparelho desligado da tomada pode continuar consumindo energia.",
+  "1) Um aparelho desligado pode continuar consumindo energia.",
   "2) Dois aparelhos com mesma potência sempre consomem a mesma energia.",
   "3) O selo Procel A indica maior eficiência energética.",
   "4) Um aparelho de 1000 W consome 1 kWh em 1 hora.",
@@ -22,7 +25,7 @@ String[] perguntas = {
 
   // MÉDIAS
   "6) Um chuveiro de 5500 W ligado por 20 minutos consome aproximadamente:",
-  "7) Qual aparelho normalmente apresenta maior potência elétrica?",
+  "7) Relacione as bandeiras tarifárias às descrições corretas.",
   "8) Uma TV de 200 W ligada 5h por dia durante 30 dias consumirá:",
 
   // DIFÍCEIS
@@ -68,10 +71,7 @@ String[][] alternativas = {
   },
 
   {
-    "Carregador de celular",
-    "Chuveiro elétrico",
-    "Lâmpada LED",
-    "Roteador"
+    "Clique para relacionar"
   },
 
   {
@@ -96,6 +96,37 @@ String[][] alternativas = {
     "R$324"
   }
 };
+// QUESTÃO ESPECIAL
+
+String[] bandeiras = {
+  "Verde",
+  "Amarela",
+  "Vermelha 1",
+  "Vermelha 2"
+};
+
+String[] descricoes = {
+  "Maior acréscimo",
+  "Sem cobrança extra",
+  "Pequeno acréscimo",
+  "Acréscimo moderado"
+};
+
+int[] respostasBandeiras = {
+  1,
+  2,
+  3,
+  0
+};
+
+int[] respostasJogador = {
+  -1,
+  -1,
+  -1,
+  -1
+};
+
+int bandeiraSelecionada = -1;
 
 // RESPOSTAS
 
@@ -115,21 +146,28 @@ int[] respostas = {
   2
 };
 
+// ==========================================
+  
+  // FONTES
+
+  fonteTitulo = createFont("Times New Roman", 36);
+  fonteTexto = createFont("Verdana", 20);
+
+// BOTAR NO SETUP
 
   // TEXTOS COM CONTROLP5
 
   titulo = cp5.addTextlabel("titulo")
     .setText("QUIZ DE ENERGIA ELÉTRICA")
-    .setPosition(120, 150)
+    .setPosition(150, 150)
     .setColorValue(color(0))
-    .setFont(createFont("Times New Roman", 36));
+    .setFont(fonteTitulo);
 
   subtitulo = cp5.addTextlabel("subtitulo")
     .setText("5 fáceis • 3 médias • 2 difíceis")
-    .setPosition(220, 230)
+    .setPosition(270, 230)
     .setColorValue(color(0))
-    .setFont(createFont("Arial", 20));
-}
+    .setFont(fonteTexto);
 
 // ==========================================
 
@@ -162,6 +200,8 @@ void telaInicial() {
 
   textAlign(CENTER);
 
+  textFont(fonteTexto);
+
   textSize(18);
 
   text(
@@ -186,13 +226,38 @@ void telaQuestoes() {
 
   fill(255);
 
+  textFont(fonteTitulo);
+
   textSize(30);
 
   textAlign(LEFT);
 
   text("QUESTÕES", 30, 55);
 
+  // DIFICULDADE
+
+  textFont(fonteTexto);
+
+  textSize(20);
+
+  fill(255);
+
+  if (questao <= 4) {
+
+    text("Dificuldade: Fácil", 550, 55);
+
+  } else if (questao <= 7) {
+
+    text("Dificuldade: Média", 540, 55);
+
+  } else {
+
+    text("Dificuldade: Difícil", 530, 55);
+  }
+
   fill(0);
+
+  textFont(fonteTexto);
 
   textSize(22);
 
@@ -212,6 +277,8 @@ void telaQuestoes() {
 
   fill(0);
 
+  textFont(fonteTexto);
+
   textSize(20);
 
   text(
@@ -222,7 +289,71 @@ void telaQuestoes() {
     120
   );
 
-  // ALTERNATIVAS
+// QUESTÃO ESPECIAL 7
+
+if (questao == 6) {
+
+  textFont(fonteTexto);
+
+  textSize(18);
+
+  fill(0);
+
+  text("BANDEIRAS", 120, 340);
+  text("DESCRIÇÕES", 480, 340);
+
+  for (int i = 0; i < bandeiras.length; i++) {
+
+    // BANDEIRAS
+
+    if (bandeiraSelecionada == i) {
+      fill(120, 200, 255);
+    } else {
+      fill(255);
+    }
+
+    rect(80, 370 + i*80, 220, 50, 10);
+
+    fill(0);
+
+    text(
+      bandeiras[i],
+      110,
+      402 + i*80
+    );
+
+    // DESCRIÇÕES
+
+    fill(255);
+
+    rect(430, 370 + i*80, 260, 50, 10);
+
+    fill(0);
+
+    text(
+      descricoes[i],
+      450,
+      402 + i*80
+    );
+
+    // LINHAS
+
+    if (respostasJogador[i] != -1) {
+
+      stroke(0);
+
+      line(
+        300,
+        395 + i*80,
+        430,
+        395 + respostasJogador[i]*80
+      );
+    }
+  }
+
+} else {
+
+  // ALTERNATIVAS NORMAIS
 
   int y = 340;
 
@@ -237,6 +368,7 @@ void telaQuestoes() {
     );
   }
 }
+}
 
 // TELA FINAL
 
@@ -247,6 +379,8 @@ void telaFinal() {
   fill(0);
 
   textAlign(CENTER);
+
+  textFont(fonteTitulo);
 
   textSize(40);
 
@@ -259,6 +393,8 @@ void telaFinal() {
     width/2,
     300
   );
+
+  textFont(fonteTexto);
 
   textSize(24);
 
@@ -302,6 +438,8 @@ void botao(float x, float y, float w, float h, String texto) {
 
   textAlign(CENTER, CENTER);
 
+  textFont(fonteTexto);
+
   textSize(24);
 
   text(
@@ -335,6 +473,8 @@ void alternativa(float x, float y, float w, float h, String texto) {
 
   textAlign(LEFT, CENTER);
 
+  textFont(fonteTexto);
+
   textSize(20);
 
   text(
@@ -358,9 +498,72 @@ void mousePressed() {
     }
   }
 
-  // QUESTÕES
+// QUESTÕES
 
-  else if (tela == 1) {
+else if (tela == 1) {
+
+  // QUESTÃO ESPECIAL
+
+  if (questao == 6) {
+
+    // CLICOU NAS BANDEIRAS
+
+    for (int i = 0; i < bandeiras.length; i++) {
+
+      if (clicou(80, 370 + i*80, 220, 50)) {
+
+        bandeiraSelecionada = i;
+      }
+    }
+
+    // CLICOU NAS DESCRIÇÕES
+
+    for (int i = 0; i < descricoes.length; i++) {
+
+      if (clicou(430, 370 + i*80, 260, 50)) {
+
+        if (bandeiraSelecionada != -1) {
+
+          respostasJogador[bandeiraSelecionada] = i;
+
+          bandeiraSelecionada = -1;
+        }
+      }
+    }
+
+    // VERIFICAR SE COMPLETOU
+
+    boolean completo = true;
+
+    for (int i = 0; i < respostasJogador.length; i++) {
+
+      if (respostasJogador[i] == -1) {
+
+        completo = false;
+      }
+    }
+
+    if (completo) {
+
+      boolean correto = true;
+
+      for (int i = 0; i < respostasBandeiras.length; i++) {
+
+        if (respostasJogador[i] != respostasBandeiras[i]) {
+
+          correto = false;
+        }
+      }
+
+      if (correto) {
+
+        pontos++;
+      }
+
+      questao++;
+    }
+
+  } else {
 
     int y = 340;
 
@@ -372,6 +575,7 @@ void mousePressed() {
       }
     }
   }
+}
 
   // FINAL
 
@@ -388,7 +592,10 @@ void mousePressed() {
       println("5) Verdadeiro");
 
       println("6) 1,8 kWh");
-      println("7) Chuveiro elétrico");
+      println("7) Verde → sem cobrança extra");
+      println("   Amarela → pequeno acréscimo");
+      println("   Vermelha 1 → acréscimo moderado");
+      println("   Vermelha 2 → maior acréscimo");
       println("8) 30 kWh");
 
       println("9) 21,6 kWh");
@@ -422,4 +629,8 @@ boolean clicou(float x, float y, float w, float h) {
          mouseX < x+w &&
          mouseY > y &&
          mouseY < y+h;
+}
+
+void cliqueQuestoes() {
+
 }
