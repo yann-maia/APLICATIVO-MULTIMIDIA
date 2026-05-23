@@ -1,4 +1,4 @@
- int tela = 1;
+int tela = 1;
 
 float virar = 0;
 boolean animando = false;
@@ -174,6 +174,7 @@ void draw() {
     0,
     paginaL/2
   );
+  
 
   noStroke();
   fill(230, 220, 200);
@@ -204,12 +205,13 @@ void pagina1() {
 
   desenharTexto(
     "Página 1",
-    "Consumo de energia elétrica no cotidiano",
-    "  A energia elétrica está presente em praticamente \n" 
-    + "  todas as atividades do dia a dia.\n"
-    + "  Ela é utilizada para fazer aparelhos funcionarem, ilu-\n" 
-    + "  minar ambientes, aquecer água, carregar celulares e\n  "
-    + " alimentar diversos equipamentos."
+    "  Fórmula básica",
+    "  Potência -> medida em W \n" 
+    + "  1000 W = 1 kW)\n\n"
+    + "  E=P*t\n" 
+    + "  E = energia\n  "
+    + "P = potência\n"
+    + "  t = tempo"
   );
 }
 
@@ -217,11 +219,11 @@ void pagina2() {
 
   desenharTexto(
     "Página 2",
-    "Consumo da energia elétrica no cotidiano",
-    "Um chuveiro transforma energia elétrica em calor.\n"
-   + "Uma lâmpada transforma energia elétrica em luz.\n" 
-   + "Um ventilador transforma energia elétrica em\n movimento.\n"
-   + "Um chuveiro transforma energia elétrica em calor."
+    "  Conversões",
+    "  Conversão\n"
+   + "  1000W=1kW\n\n" 
+   + "  Exemplo:\n"
+   + "  1kW*2h=2kWh"
   );
 }
 
@@ -229,14 +231,12 @@ void pagina3() {
 
   desenharTexto(
     "Página 3",
-    "Consumo da energia elétrica no cotidiano",
-    "O consumo de energia depende principalmente\n de dois fatores:\n"
-    + "- a potência do aparelho\n"
-    + "- o tempo em que ele permanece ligado\n"
-    + "Quanto maior for a potência ou o tempo de uso, maior\n será o consumo de energia.\n"
-    + "A potência elétrica indica quanta energia um\n aparelho utiliza em determinado tempo.\n "
-    + "Ela mostra o quão 'forte' é o funcionamento de um\n equipamento elétrico."
-
+    "  Como calcular o gasto",
+    "  Cálculo:\n\n"
+    + "  Verde -> sem taxa\n"
+    + "  Amarela -> média\n"
+    + "  Vermelha -> alta\n"
+  
   );
 }
 
@@ -244,12 +244,12 @@ void pagina4() {
 
   desenharTexto(
     "Página 4",
-    "Consumo da energia elétrica no cotidiano",
-    "No Sistema Internacional de Unidades (SI), a potência\n é medida em watts (W).\n\n"
-    + "Exemplos:\n"
-    + "carregador de celular -> potência baixa\n"
-    + "televisão -> potência média\n"
-    + "chuveiro elétrico -> potência alta."
+    "  Eficiência energética",
+    "  Selo Procel A = mais econômico\n"
+    + "  LED consome menos energia\n"
+    + "  Mais eficiência = menos gasto\n"
+    + "  Incandescente gasta mais energia\n"
+    + "  Mais tempo ligado = maior consumo"
   );
 }
 
@@ -398,4 +398,3 @@ void mousePressed() {
       direcao = -1;
     }
   }
-}
