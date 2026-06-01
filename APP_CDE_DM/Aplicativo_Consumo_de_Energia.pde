@@ -1,5 +1,8 @@
 import controlP5.*;
 
+int[][] ordemAlternativas;
+int[] respostaCorretaEmbaralhada;
+
 ControlP5 cp5;
 
 final int MENU = 0;
