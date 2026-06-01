@@ -87,6 +87,44 @@ int[] respostas = {
 
 int[] respostasEscolhidas = new int[perguntas.length];
 
+void embaralharAlternativas(){
+
+  ordemAlternativas = new int[alternativas.length][];
+  respostaCorretaEmbaralhada = new int[alternativas.length];
+
+  for(int q = 0; q < alternativas.length; q++){
+
+    if(alternativas[q].length <= 1){
+      continue;
+    }
+
+    ordemAlternativas[q] =
+      new int[alternativas[q].length];
+
+    for(int i = 0; i < alternativas[q].length; i++){
+      ordemAlternativas[q][i] = i;
+    }
+
+    for(int i = ordemAlternativas[q].length - 1; i > 0; i--){
+
+      int j = int(random(i + 1));
+
+      int temp = ordemAlternativas[q][i];
+      ordemAlternativas[q][i] = ordemAlternativas[q][j];
+      ordemAlternativas[q][j] = temp;
+    }
+
+    for(int i = 0; i < ordemAlternativas[q].length; i++){
+
+      if(ordemAlternativas[q][i] == respostas[q]){
+
+        respostaCorretaEmbaralhada[q] = i;
+        break;
+      }
+    }
+  }
+}
+
 void setupConfete(){
 
   for(int i = 0; i < confeteX.length; i++){
@@ -125,6 +163,7 @@ void resetQuestions(){
   }
 
   resetQuestionSeven();
+  embaralharAlternativas();
 }
 
 void resetQuestionSeven(){
@@ -329,7 +368,8 @@ void drawQuestionsPlaying(){
         altY + i * espaco,
         altW,
         altH,
-        alternativas[questao][i]
+        alternativas[questao]
+            [ordemAlternativas[questao][i]]
       );
     }
   }
@@ -585,7 +625,8 @@ void verificarRespostaQuestao(int respostaJogador){
 
   respostasEscolhidas[questao] = respostaJogador;
 
-  if(respostaJogador == respostas[questao]){
+  if(respostaJogador ==
+   respostaCorretaEmbaralhada[questao]){
 
     pontos++;
   }
