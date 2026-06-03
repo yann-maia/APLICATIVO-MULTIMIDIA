@@ -138,7 +138,7 @@ void setupThemes() {
     color(255),           // reviewCard
     color(180, 255, 180), // reviewCardHover
     color(120, 0, 45),    // reviewBackground → vinho principal
-    color(255),           // reviewText → branco (fundo escuro)
+    color(30),           // reviewText → branco (fundo escuro)
     color(120, 0, 45),    // answersBackground → vinho principal
     color(255)            // answersText → branco
   );
