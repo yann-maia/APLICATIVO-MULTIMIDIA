@@ -14,6 +14,9 @@ int quizState       = QUIZ_START;
 int currentQuestion = 0;
 int score           = 0;
 
+int[][] answersOrder;
+int[] rightAnswerShuffle;
+
 int[] selectedAnswers;
 
 // bandeiras (questão 7)
@@ -66,6 +69,48 @@ void setupConfetti() {
 }
 
 // -------------------------
+// SHUFFLE
+// -------------------------
+
+void shuffleAnswers() {
+
+  answersOrder = new int[questions.length][];
+  rightAnswerShuffle = new int[questions.length];
+
+  for (int q = 0; q < questions.length; q++) {
+
+    if (q == 6) continue; // questão das bandeiras
+
+    int n = questions[q].alternatives.length;
+
+    answersOrder[q] = new int[n];
+
+    for (int i = 0; i < n; i++) {
+      answersOrder[q][i] = i;
+    }
+
+    for (int i = n - 1; i > 0; i--) {
+
+      int j = int(random(i + 1));
+
+      int temp = answersOrder[q][i];
+      answersOrder[q][i] = answersOrder[q][j];
+      answersOrder[q][j] = temp;
+    }
+
+    for (int i = 0; i < n; i++) {
+
+      if (answersOrder[q][i] ==
+          questions[q].correctAnswer) {
+
+        rightAnswerShuffle[q] = i;
+        break;
+      }
+    }
+  }
+}
+
+// -------------------------
 // RESET
 // -------------------------
 
@@ -79,6 +124,7 @@ void resetQuestions() {
   for (int i = 0; i < selectedAnswers.length; i++) selectedAnswers[i] = -1;
 
   resetFlagQuestion();
+  shuffleAnswers();
 }
 
 void resetFlagQuestion() {
@@ -185,12 +231,6 @@ void drawQuizPlaying() {
   } else {
     drawAlternatives();
   }
-
-  // Pontuação
-  fill(currentTheme.text);
-  textAlign(CENTER);
-  textSize(22);
-  text("Pontua\u00e7\u00e3o: " + score, width / 2, height * 0.93);
 }
 
 void drawAlternatives() {
@@ -210,7 +250,9 @@ void drawAlternatives() {
     textAlign(LEFT, CENTER);
     textFont(fontQuizBody);
     textSize(20);
-    text(questions[currentQuestion].alternatives[i], altX + 20, altY + i * gap + altH / 2);
+    int realIndex =
+  answersOrder[currentQuestion][i];
+  text(questions[currentQuestion].alternatives[realIndex], altX + 20, altY + i * gap + altH / 2);
   }
 }
 
@@ -378,7 +420,8 @@ void handlePlayingClick() {
 
 void checkAnswer(int playerAnswer) {
   selectedAnswers[currentQuestion] = playerAnswer;
-  if (playerAnswer == questions[currentQuestion].correctAnswer) score++;
+  if (playerAnswer ==
+    rightAnswerShuffle[currentQuestion]){score++;}
   advanceQuestion();
 }
 
